@@ -36,33 +36,30 @@ public class BareBonesHTTPD extends Thread {
 
 	private void processRequest(BBHttpRequest httpRequest, BBHttpResponse httpResponse) {
 
-		StringBuilder response = new StringBuilder();
-		response.append("<!DOCTYPE html>");
-		response.append("<html>");
-		response.append("<head>");
-		response.append("<title>Almost an HTTP Server</title>");
-		response.append("</head>");
-		response.append("<body>");
-		response.append("<h1>This is the HTTP Server</h1>");
-		response.append("<h2>Your request was:</h2>\r\n");
-		response.append("<h3>Request Line:</h3>\r\n");
-		response.append(httpRequest.getStartLine());
-		response.append("<br />");
-		response.append("<h3> Header Fields: </h3>");
-		for (String headerField : httpRequest.getFields()) {
-			response.append(headerField.replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;"));
-			response.append("<br />");
-		}
-		response.append("<h3> Payload: </h3>");
-		for (String messageLine : httpRequest.getMessage()) {
-			response.append(messageLine.replace("<", "&lt;").replace("&", "&amp;"));
-			response.append("<br />");
-		}
-		response.append("</body>");
-		response.append("</html>");
+		try {
+			String filePath = new File("").getAbsolutePath();
+			File file = new File(filePath + "/web" + httpRequest.getUri());
+			if (!file.exists() || file.isDirectory()) {
+				httpResponse.setStatusCode(404);
+				httpResponse.setMessage("File not found");
+				return;
+			}
 
-		httpResponse.setStatusCode(200);
-		httpResponse.setMessage(response.toString());
+			StringBuilder response = new StringBuilder();
+			try(BufferedReader br = new BufferedReader(new FileReader(file))){
+				String st;
+				while ((st = br.readLine()) != null) {
+					response.append(st);
+				}
+				httpResponse.setStatusCode(200);
+				httpResponse.setMessage(response.toString());
+			}catch(Exception ex) {
+				throw ex;
+			}
+		} catch (Exception e) {
+			httpResponse.setStatusCode(500);
+			httpResponse.setMessage("Internal server error");
+		}
 	}
 
 	private BBHttpRequest getRequest(InputStream inputStream) throws IOException {
@@ -73,7 +70,7 @@ public class BareBonesHTTPD extends Thread {
 
 		String headerLine = fromClient.readLine();
 
-		if ((headerLine == null)||(headerLine.isEmpty())) {
+		if ((headerLine == null) || (headerLine.isEmpty())) {
 			return null;
 		}
 
