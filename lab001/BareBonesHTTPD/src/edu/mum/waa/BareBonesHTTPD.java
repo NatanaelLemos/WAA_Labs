@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import edu.mum.waa.resolvers.*;
+
 public class BareBonesHTTPD extends Thread {
 
 	private static final int PortNumber = 8080;
@@ -23,42 +25,14 @@ public class BareBonesHTTPD extends Thread {
 
 			if (httpRequest != null) {
 				BBHttpResponse httpResponse = new BBHttpResponse();
-
-				processRequest(httpRequest, httpResponse);
-
+				
+				IHttpPageResolver resolver = HttpPageResolverFactory.createInstance(httpRequest.getUri());
+				resolver.processRequest(httpRequest, httpResponse);
 				sendResponse(httpResponse);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void processRequest(BBHttpRequest httpRequest, BBHttpResponse httpResponse) {
-
-		try {
-			String filePath = new File("").getAbsolutePath();
-			File file = new File(filePath + "/web" + httpRequest.getUri());
-			if (!file.exists() || file.isDirectory()) {
-				httpResponse.setStatusCode(404);
-				httpResponse.setMessage("File not found");
-				return;
-			}
-
-			StringBuilder response = new StringBuilder();
-			try(BufferedReader br = new BufferedReader(new FileReader(file))){
-				String st;
-				while ((st = br.readLine()) != null) {
-					response.append(st);
-				}
-				httpResponse.setStatusCode(200);
-				httpResponse.setMessage(response.toString());
-			}catch(Exception ex) {
-				throw ex;
-			}
-		} catch (Exception e) {
-			httpResponse.setStatusCode(500);
-			httpResponse.setMessage("Internal server error");
 		}
 	}
 
