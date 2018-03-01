@@ -17,7 +17,7 @@ public class BookController {
 	@Resource
 	private IBookDao bookDao;
 	
-	@RequestMapping("/bookStore")
+	@RequestMapping("") //Redirect fixed
 	public String redirectRoot() {
 		return "redirect:/bookStore/books";
 	}
