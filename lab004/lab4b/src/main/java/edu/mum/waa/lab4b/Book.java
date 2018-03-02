@@ -58,6 +58,7 @@ public class Book {
 		this.author = author;
 	}
 
+	@Min(value=1)
 	public double getPrice() {
 		return price;
 	}

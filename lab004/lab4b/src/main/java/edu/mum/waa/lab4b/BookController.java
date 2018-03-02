@@ -15,6 +15,11 @@ public class BookController {
 	@Autowired
 	private IBookDao bookDao;
 	
+	@RequestMapping("")
+	public String redirectRoot() {
+		return "redirect:/bookStore/books";
+	}
+	
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String getAll(Model model) {
 		model.addAttribute("books", bookDao.getAll());
@@ -37,13 +42,13 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
-	public String get(@ModelAttribute("bookModel") Book bookModel, @PathVariable int id, Model model) {
-		model.addAttribute("book", bookDao.get(id));
+	public String get(@ModelAttribute("book") Book book, @PathVariable int id, Model model) {
+		model.addAttribute("bookAttribute", bookDao.get(id));
 		return "bookDetail";
 	}
 
 	@RequestMapping(value = "/books/{id}", method = RequestMethod.POST)
-	public String update(Book book, @PathVariable int id, BindingResult result) {
+	public String update(@PathVariable int id, @Valid Book book, BindingResult result) {
 		if (result.hasErrors()) {
 			return "bookDetail";
 		}

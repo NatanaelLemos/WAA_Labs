@@ -6,32 +6,32 @@
 <title>Add a Book</title>
 </head>
 <body>
-	<form:form modelAttribute="bookModel" action="${book.id}" method="post">
+	<form:form modelAttribute="book" action="${bookAttribute.id}" method="post">
 		<table>
 			<tr>
 				<td>Title:</td>
-				<td><form:input path="title" /></td>
+				<td><form:input path="title" value="${bookAttribute.title}" /></td>
 				<td><form:errors path="title" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>ISBN:</td>
-				<td><form:input path="ISBN" /></td>
+				<td><form:input path="ISBN" value="${bookAttribute.ISBN}" /></td>
 				<td><form:errors path="ISBN" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Author:</td>
-				<td><form:input path="author" /></td>
+				<td><form:input path="author" value="${bookAttribute.author}" /></td>
 				<td><form:errors path="author" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Price:</td>
-				<td><form:input path="price" /></td>
+				<td><form:input path="price" value="${bookAttribute.price}" /></td>
 				<td><form:errors path="price" cssClass="error" /></td>
 			</tr>
 		</table>
 		<input type="submit" value="update" />
 	</form:form>
-	<form action="delete?bookId=${book.id}" method="post">
+	<form action="delete?bookId=${bookAttribute.id}" method="post">
 		<button type="submit">Delete</button>
 	</form>
 </body>
