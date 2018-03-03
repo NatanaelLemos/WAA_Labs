@@ -1,0 +1,24 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<user-service>
+		<user name="sales" password="123456" authorities="SALES" />
+		<user name="admin" password="123456" authorities="ADMIN" />
+		<user name="books" password="123456" authorities="ACCOUNT" />
+	</user-service>
+	
+	<http>
+		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/cars" access="SALES" />
+		<intercept-url pattern="/bookStore" access="ACCOUNT" />
+
+		<form-login login-page="/login" authentication-failure-url="/Login-error" />
+		<logout logout-success-url="/" />
+	</http>
+
+</b:beans>
+
+<!-- SALES only should access the cars area -->
+<!-- ACCOUNT should access only the books area -->
+<!-- ADMIN have access to everything -->
