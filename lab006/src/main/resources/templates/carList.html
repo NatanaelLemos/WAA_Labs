@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<title>Cars currently in the shop</title>
+</head>
+
+<body>
+	<h1>Cars currently in the shop</h1>
+	<table>
+		<tr th:each="car,row: ${cars}">
+			<td th:text="${car.make}">Make</td>
+			<td th:text="${car.model}">Model</td>
+			<td th:text="${car.year}">Year</td>
+			<td th:text="${car.color}">Color</td>
+			<td><a th:href="@{cars/__${car.id}__}">edit</a></td>
+			
+		</tr>
+	</table>
+
+	<a th:href="@{cars/add}"> Add a Car</a>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<title>Add a Car</title>
+</head>
+
+<body>
+	<form action="#" th:action="@{add}" th:object="${book}" method="post">
+		<div th:insert="~{bookCRUDCommon :: fields}"></div>
+		<input type="submit" />
+	</form>
+</body>
+
+</html>

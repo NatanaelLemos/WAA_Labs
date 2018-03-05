@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta charset="UTF-8" />
+	<title>Welcome</title>
+</head>
+<body>
+	<h1>
+		Welcome
+	</h1>
+
+	<h3>
+		Select one
+	</h3>
+
+	<ul>
+		<li>
+			<a th:href="@{cars}">
+				Cars
+			</a>
+		</li>
+		<li>
+			<a th:href="@{bookStore}">
+				Books
+			</a>
+		</li>
+	</ul>
+</body>
+</html>

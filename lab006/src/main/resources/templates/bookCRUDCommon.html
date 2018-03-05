@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<table th:fragment="fields">
+		<tr>
+			<td>Title:</td>
+			<td><input type="text" th:field="*{title}" th:value="${book?.title}" th:errorclass="fieldError" /></td>
+			<td><p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</p></td>
+		</tr>
+		<tr>
+			<td>ISBN:</td>
+			<td><input type="text" th:field="*{ISBN}" th:value="${book?.ISBN}" th:errorclass="fieldError" /></td>
+			<td><p th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}">error</p></td>
+		</tr>
+		<tr>
+			<td>Author:</td>
+			<td><input type="text" th:field="*{author}" th:value="${book?.author}" th:errorclass="fieldError" /></td>
+			<td><p th:if="${#fields.hasErrors('author')}" th:errors="*{author}">error</p></td>
+		</tr>
+		<tr>
+			<td>Price:</td>
+			<td><input type="text" th:field="*{price}" th:value="${book?.price}" th:errorclass="fieldError" /></td>
+			<td><p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">error</p></td>
+		</tr>
+	</table>
+</html>
