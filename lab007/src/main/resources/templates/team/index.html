@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Teams</title>
+</head>
+<body>
+	<div th:insert="~{/partials/templateCommon :: nav}"></div>
+	<main class="container">
+	<h1>Teams</h1>
+	<a th:href="@{/teams/add}">Add a Team</a>
+	<table class="table table-hover table-stripped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>City</th>
+				<th>Mascot</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="team: ${teams}">
+				<td th:text="${team.name}">Name</td>
+				<td th:text="${team.city}">City</td>
+				<td th:text="${team.mascot}">Mascot</td>
+				<td>
+					<a th:href="@{/teams/edit/__${team.teamKey}__}">Edit</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</main>
+	<div th:insert="~{/partials/templateCommon :: imports}"></div>
+</body>
+</html>

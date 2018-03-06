@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="form">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" placeholder="Team name" th:field="*{name}" th:value="${team?.name}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+  </div>
+  <div class="form-group">
+    <label for="city">City</label>
+    <input type="text" class="form-control" placeholder="City name" th:field="*{city}" th:value="${team?.city}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
+  </div>
+  <div class="form-group">
+    <label for="mascot">Mascot</label>
+    <input type="text" class="form-control" placeholder="Team mascot" th:field="*{mascot}" th:value="${team?.mascot}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('mascot')}" th:errors="*{mascot}"></small>
+  </div>
+  <div class="form-group">
+    <label for="homeUniform">Home uniform</label>
+    <input type="text" class="form-control" placeholder="Home uniform" th:field="*{homeUniform}" th:value="${team?.homeUniform}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('homeUniform')}" th:errors="*{homeUniform}"></small>
+  </div>
+  <div class="form-group">
+    <label for="visitUniform">Visit uniform</label>
+    <input type="text" class="form-control" placeholder="Visit uniform" th:field="*{visitUniform}" th:value="${team?.visitUniform}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('visitUniform')}" th:errors="*{visitUniform}"></small>
+  </div>
+</div>
+</html>

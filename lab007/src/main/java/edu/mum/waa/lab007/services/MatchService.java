@@ -1,34 +1,36 @@
+
 package edu.mum.waa.lab007.services;
 
 import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.mum.waa.lab007.data.MatchRepository;
 import edu.mum.waa.lab007.models.*;
 
 @Service
-public class TeamService {
+public class MatchService {
+
 	@Autowired
 	private MatchRepository repository;
 
-	public List<Team> getAll() {
-		return repository.getAllTeams();
+	public List<Match> getAll() {
+		return repository.getAllMatches();
 	}
 
-	public Team get(int id) {
-		return repository.getTeam(id);
+	public Match get(int id) {
+		return repository.getMatch(id);
 	}
 
-	public void add(Team team) {
-		repository.addTeam(team);
+	public void add(Match match) {
+		
+		repository.addMatch(match);
 	}
 	
-	public void edit(int id, Team team) {
-		repository.editTeam(id, team);
+	public void edit(int id, Match team) {
+		repository.editMatch(id, team);
 	}
 
 	public void delete(int id) {
-		repository.deleteTeam(id);
+		repository.deleteMatch(id);
 	}
 }

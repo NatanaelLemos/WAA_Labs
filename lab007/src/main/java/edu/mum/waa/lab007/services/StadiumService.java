@@ -8,27 +8,27 @@ import edu.mum.waa.lab007.data.MatchRepository;
 import edu.mum.waa.lab007.models.*;
 
 @Service
-public class TeamService {
+public class StadiumService {
 	@Autowired
 	private MatchRepository repository;
 
-	public List<Team> getAll() {
-		return repository.getAllTeams();
+	public List<Stadium> getAll() {
+		return repository.getAllStadiums();
 	}
 
-	public Team get(int id) {
-		return repository.getTeam(id);
+	public Stadium get(int id) {
+		return repository.getStadium(id);
 	}
 
-	public void add(Team team) {
-		repository.addTeam(team);
+	public void add(Stadium team) {
+		repository.addStadium(team);
 	}
 	
-	public void edit(int id, Team team) {
-		repository.editTeam(id, team);
+	public void edit(int id, Stadium team) {
+		repository.editStadium(id, team);
 	}
 
 	public void delete(int id) {
-		repository.deleteTeam(id);
+		repository.deleteStadium(id);
 	}
 }

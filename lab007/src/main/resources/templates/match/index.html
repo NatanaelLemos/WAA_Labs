@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Matches</title>
+</head>
+<body>
+	<div th:insert="~{/partials/templateCommon :: nav}"></div>
+	<main class="container">
+	<h1>Matches</h1>
+	<a th:href="@{/matches/add}">Add a Match</a>
+	<table class="table table-hover table-stripped">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Stadium</th>
+				<th>Home Team</th>
+				<th>Home Score</th>
+				<th>Visitor Team</th>
+				<th>Visitor Score</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="match: ${matches}">
+				<td th:text="${#dates.format(match.date, 'MMM-dd-yyyy')}">0000-00-00</td>
+				<td th:text="${match.stadium.name}">Stadium</td>
+				<td th:text="${match.homeTeam.name}">Team</td>
+				<td th:text="${match.homeScore}">Score</td>
+				<td th:text="${match.visitorTeam.name}">Team</td>
+				<td th:text="${match.visitorScore}">Score</td>
+				<td>
+					<form th:action="@{/matches/delete/__${match.matchKey}__}" method="post">
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</main>
+	<div th:insert="~{/partials/templateCommon :: imports}"></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Edit Match</title>
+</head>
+<body>
+	<div th:insert="~{/partials/templateCommon :: nav}"></div>
+	<main class="container">
+	<h1>Edit Match</h1>
+	<form th:action="@{/matches/edit/__${match.matchKey}__}" th:object="${stadium}" method="post">
+		<div th:insert="~{/match/matchCommon :: form}"></div>
+	</form>
+	<div class="row">
+		<div class="col-md-12">
+			<form th:action="@{/matches/delete/__${match.stadiumKey}__}" method="post">
+				<button type="submit" class="btn btn-danger">Delete</button>
+			</form>
+		</div>
+	</div>
+	</main>
+	<div th:insert="~{/partials/templateCommon :: imports}"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="form">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" placeholder="Stadium name" th:field="*{name}" th:value="${stadium?.name}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+  </div>
+  <div class="form-group">
+    <label for="city">City</label>
+    <input type="text" class="form-control" placeholder="City name" th:field="*{city}" th:value="${stadium?.city}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
+  </div>
+  <div class="form-group">
+    <label for="state">State</label>
+    <input type="text" class="form-control" placeholder="State" th:field="*{state}" th:value="${stadium?.state}">
+    <small class="form-text text-muted" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></small>
+  </div>
+</div>
+</html>

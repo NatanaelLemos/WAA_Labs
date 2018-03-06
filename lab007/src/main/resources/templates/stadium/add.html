@@ -2,12 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Welcome to the WAA Soccer Matchs Application</title>
+<title>Add Stadium</title>
 </head>
 <body>
 	<div th:insert="~{/partials/templateCommon :: nav}"></div>
 	<main class="container">
-	<h1>Welcome to the WAA Soccer Matchs Application</h1>
+	<h1>Add Stadium</h1>
+	<form th:action="@{/stadiums/add}" th:object="${stadium}" method="post">
+		<div th:insert="~{/stadium/stadiumCommon :: form}"></div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 	</main>
 	<div th:insert="~{/partials/templateCommon :: imports}"></div>
 </body>
