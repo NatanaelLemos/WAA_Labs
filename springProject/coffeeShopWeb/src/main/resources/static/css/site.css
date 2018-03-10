@@ -1,0 +1,33 @@
+main {
+	padding-top: 15px;
+}
+
+.featured {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #555;
+	border-radius: 0  0 5px 5px;
+}
+
+.featured .small {
+	float: left;
+	color: #666;
+}
+
+.featured .clear {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+
+	.featured img {
+		max-height: 400px;
+		max-width: 100%;
+	}
+	
+
+.price {
+	color: #25AF48;
+	font-weight: bold;
+}

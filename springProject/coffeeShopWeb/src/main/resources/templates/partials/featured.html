@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="featured" th:fragment="featured">
+	<p class="small">Featured</p>
+	<div class="clear"></div>
+	<h2 th:text="${featured.productName}">Product Name</h2>
+	<p th:text="${featured.description}">Description</p>
+	<p class="price" th:text="${#numbers.formatDecimal(featured.price, 0, 'COMMA', 2, 'POINT')}">00.00</p>
+	<a th:href="@{/cart/add/__${featured.id}__}">Add to cart</a>
+</div>
+</html>
