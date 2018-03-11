@@ -34,7 +34,11 @@ public class AuthenticationService implements AuthenticationProvider {
 			return null;
 		}
 		
-		return personAuth(person);
+		if(person.isAdmin()) {
+			return adminAuth(name, password);
+		}else {
+			return personAuth(person.getEmail(), person.getPassword());
+		}
 	}
 
 	private boolean isAdmin(String name, String password) {
@@ -43,15 +47,16 @@ public class AuthenticationService implements AuthenticationProvider {
 
 	private Authentication adminAuth(String name, String password) {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
+		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
 		grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
 		Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
 		return auth;
 	}
 
-	private Authentication personAuth(Person person) {
+	private Authentication personAuth(String name, String password) {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
 		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-		Authentication auth = new UsernamePasswordAuthenticationToken(person.getEmail(), person.getPassword(), grantedAuths);
+		Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
 		return auth;
 	}
 

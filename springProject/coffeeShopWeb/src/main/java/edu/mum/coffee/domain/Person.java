@@ -14,13 +14,19 @@ public class Person {
 	private Address address;
 	private String phone;
 	private boolean enable;
+	private boolean admin;
 	
 	public Person() {
 		enable = true;
+		admin = false;
 	}
 
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public boolean isEnable() {
@@ -30,6 +36,10 @@ public class Person {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
+	
+
+	public boolean isAdmin() { return admin; }
+	public void setAdmin(boolean admin) { this.admin = admin; }
 	
 	@NotNull
 	@NotBlank

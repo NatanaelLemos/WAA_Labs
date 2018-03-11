@@ -1,22 +1,82 @@
 package edu.mum.coffee.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.mum.coffee.domain.*;
+import edu.mum.coffee.service.ProductService;
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
-	
-	@GetMapping({"/"})
-	public String list() {
+
+	@Autowired
+	private ProductService productService;
+
+	@GetMapping({ "/" })
+	public String list(Model model, HttpServletRequest request) {
+		model.addAttribute("cart", getProducts(request));
 		return "cart/index";
 	}
-	
-	@GetMapping({"/add/{id}"})
-	public String add(@PathVariable int id, Model model) {
+
+	private List<Orderline> getProducts(HttpServletRequest request) {
+		List<Orderline> cart = null;
+
+		try {
+			cart = (List<Orderline>)request.getSession().getAttribute("cart");
+		} catch (Exception e) {
+		}
+		
+		if(cart == null) {
+			return new ArrayList<Orderline>();
+		}else {
+			return cart;
+		}
+	}
+
+	@GetMapping({ "/add/{id}" })
+	public String add(@PathVariable int id, HttpServletRequest request) {
+		Product product = productService.get(id);
+		addProduct(request, product);
 		return "redirect:/";
+	}
+
+	private void addProduct(HttpServletRequest request, Product product) {
+		List<Orderline> cart = getProducts(request);
+		
+		Orderline line = cart.stream().filter(c -> c.getProduct().getId() == product.getId()).findFirst().orElse(null);
+		
+		if(line == null) {
+			line = new Orderline();
+			line.setProduct(product);
+			line.setQuantity(1);
+			cart.add(line);
+		}else {
+			line.setQuantity(line.getQuantity() + 1);
+		}
+		
+		request.getSession().setAttribute("cart", cart);
+	}
+	
+	@GetMapping({"/delete/{id}"})
+	public String delete(@PathVariable int id, HttpServletRequest request) {
+		List<Orderline> cart = getProducts(request);
+		
+		Orderline line = cart.stream().filter(c -> c.getProduct().getId() == id).findFirst().orElse(null);
+		if(line != null) {
+			cart.remove(line);
+		}
+
+		request.getSession().setAttribute("cart", cart);
+		return "redirect:/cart/";
 	}
 }

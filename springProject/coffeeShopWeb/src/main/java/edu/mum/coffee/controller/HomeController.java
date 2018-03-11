@@ -13,26 +13,32 @@ import edu.mum.coffee.service.ProductService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
-	@GetMapping({"/", "/index", "/home"})
+
+	@GetMapping({ "/", "/index", "/home" })
 	public String homePage(Model model) {
 		populateModel(model);
 		return "home/index";
 	}
 
 	private void populateModel(Model model) {
+
+		Product featured = null;
 		List<Product> products = productService.getAll();
 		model.addAttribute("products", products);
+
+		if (products.size() > 0) {
+			Random randFeatured = new Random();
+			int n = randFeatured.nextInt(products.size());
+			featured = products.get(n);
+		}
 		
-		Random randFeatured = new Random();
-		int n = randFeatured.nextInt(products.size());
-		model.addAttribute("featured", products.get(n));
+		model.addAttribute("featured", featured);
 	}
 
-	@GetMapping({"/secure"})
+	@GetMapping({ "/secure" })
 	public String securePage() {
 		return "home/secure";
 	}
