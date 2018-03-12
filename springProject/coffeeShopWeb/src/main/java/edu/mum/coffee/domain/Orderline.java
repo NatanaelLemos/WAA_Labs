@@ -1,5 +1,7 @@
 package edu.mum.coffee.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Orderline {
 
 	private int id;
@@ -25,10 +27,12 @@ public class Orderline {
 		this.product = product;
 	}
 
+	@JsonIgnore
 	public Order getOrder() {
 		return order;
 	}
 
+	@JsonIgnore
 	public void setOrder(Order order) {
 		this.order = order;
 	}

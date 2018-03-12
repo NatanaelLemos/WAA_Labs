@@ -1,11 +1,13 @@
 package edu.mum.coffee.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.mum.coffee.domain.*;
+import edu.mum.coffee.service.OrderService;
+import edu.mum.coffee.service.PersonService;
 import edu.mum.coffee.service.ProductService;
 
 @Controller
@@ -21,6 +25,12 @@ public class CartController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private PersonService personService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@GetMapping({ "/" })
 	public String list(Model model, HttpServletRequest request) {
@@ -78,5 +88,27 @@ public class CartController {
 
 		request.getSession().setAttribute("cart", cart);
 		return "redirect:/cart/";
+	}
+	
+	@GetMapping({"/placeOrder"})
+	public String placeOrder(HttpServletRequest request) {
+		String email = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Person p = personService.getByEmail(email);
+		if(p == null) {
+			return "redirect:/cart/";
+		}
+
+		Order order = new Order();
+		order.setOrderDate(new Date());
+		order.setPerson(p);
+
+		List<Orderline> cart = getProducts(request);		
+		for(Orderline line : cart) {
+			order.addOrderLine(line);
+		}
+		
+		orderService.add(order);
+		request.getSession().setAttribute("cart", new ArrayList<Orderline>());
+		return "redirect:/";
 	}
 }

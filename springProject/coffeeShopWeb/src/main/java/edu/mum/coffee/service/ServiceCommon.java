@@ -40,7 +40,10 @@ public abstract class ServiceCommon<T, K> {
 	@SuppressWarnings({ "unchecked", "unused" })
 	public List<T> getAll() {
 		List<T> result = getClient().getForObject(uri, List.class);
-
+		return fixedList(result);
+	}
+	
+	protected List<T> fixedList(List result){
 		if (result.size() == 0) {
 			return result;
 		}

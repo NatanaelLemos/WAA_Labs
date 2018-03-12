@@ -41,7 +41,6 @@ public class AccountController {
 	@GetMapping({"/update"})
 	public String update(@ModelAttribute("person") Person person, Model model) {
 		String email = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 		Person p = service.getByEmail(email);
 		
 		if(p == null) {
