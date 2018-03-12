@@ -50,14 +50,13 @@ public abstract class ServiceCommon<T, K> {
 
 		String typeName = result.get(0).getClass().getName();
 		if (typeName.toUpperCase().contains("LINKEDHASHMAP")) {
-			// thanks java for your GOOOOOOODDD deserializer
-			return tryToFixJavaCrap(result);
+			return getResultOneByOne(result);
 		} else {
 			return result;
 		}
 	}
 
-	private List<T> tryToFixJavaCrap(List firstResult) {
+	private List<T> getResultOneByOne(List firstResult) {
 		try {
 			List<T> newResult = new ArrayList<T>();
 
