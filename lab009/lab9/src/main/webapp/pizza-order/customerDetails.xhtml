@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+	<title>Pizza Order</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h1>Customer Detail</h1>
+
+		<h:panelGrid columns="2">
+			<h:outputLabel>First Name</h:outputLabel>
+			<h:panelGroup>
+				<h:inputText value="#{order.customer.firstName}" required="true" />
+				<h:message for="order.customer.firstName" style="color:red" />
+			</h:panelGroup>
+
+			<h:outputLabel>Last Name</h:outputLabel>
+			<h:inputText value="#{order.customer.lastName}" />
+
+			<h:outputLabel>Email</h:outputLabel>
+			<h:inputText value="#{order.customer.emailAddress}">
+				<f:passThroughAttribute name="type" value="email" />
+			</h:inputText>
+
+		<h:panelGrid columns="4">
+			<h:commandButton value="Cancel" action="cancel" immediate="true" />
+			<br />
+			<br />
+			<h:commandButton value="Next" action="next" />
+		</h:panelGrid>
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
